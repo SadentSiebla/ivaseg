@@ -1,0 +1,91 @@
+<body></body>
+<script src="/three.js"></script>
+<script>
+  // The "scene" is where stuff in our game will happen:
+  var scene = new THREE.Scene();
+  var flat = {flatShading: true};
+  var light = new THREE.AmbientLight('white', 0.8);
+  scene.add(light);
+
+  // The "camera" is what sees the stuff:
+  var aspectRatio = window.innerWidth / window.innerHeight;
+  var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+  camera.position.z = 500;
+  scene.add(camera);
+
+  // The "renderer" draws what the camera sees onto the screen:
+  var renderer = new THREE.WebGLRenderer({antialias: true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // ******** START CODING ON THE NEXT LINE ********
+  const loader = new THREE.TextureLoader();
+
+loader.load('https://threejsfundamentals.org/threejs/lessons/resources/images/compressed-but-large-wood-texture.jpg', (texture) => {
+const material = new THREE.MeshBasicMaterial({
+map: texture});});
+
+//FIGURAS
+
+  var shape = new THREE.SphereGeometry (250,200,1);
+  var shape1 = new THREE.CylinderGeometry  (150,100,100);
+  var shape2 = new THREE.CylinderGeometry (25,25,200);
+  var cabeza = new THREE.SphereGeometry (65,100, 150);
+  var ojos  = new  THREE.SphereGeometry (15,100,100);
+  var peluca = new THREE.CylinderGeometry (1,100,100,4);
+  var regalos = new THREE.BoxGeometry (500,500, 500);
+  
+  // MATERIALES
+  
+  var cover = new THREE.MeshNormalMaterial();
+  
+  //OBJETOS
+  
+  var box = new THREE.Mesh(shape, cover);
+  var falda = new THREE.Mesh(shape1, cover)
+  var brazo1 = new THREE.Mesh (shape2, cover);
+  var brazo2 = new THREE.Mesh (shape2, cover);
+  var head = new THREE.Mesh (cabeza, cover);
+  var ojo1  = new THREE.Mesh (ojos, cover);
+  var ojo2  = new THREE.Mesh (ojos, cover);
+  var pelo  = new THREE.Mesh (peluca, cover);
+  var regalo1 = new  THREE.Mesh(regalos, cover);
+  
+  // ESCENAS
+  
+  scene.add(box);
+  scene.add(falda);
+  scene.add(brazo1);
+  scene.add(brazo2);
+  scene.add(head);
+  scene.add(ojo1);
+  scene.add(ojo2);
+  scene.add(pelo);
+  scene.add(regalo1);
+  
+  // POSICIONES
+  
+  box.position.set (0,0,-200);
+  falda.position.set(0,150,-50);
+  brazo1.position.set (100, 150, -50);
+  brazo2.position.set (-100,150,-50);
+  head.position.set (0, 225, 50);
+  ojo1.position.set (-35, 190, 150);
+  ojo2.position.set (35, 190, 150);
+  pelo.position.set (0,350,0);
+  regalo1.position.set (750,150,-700)
+  
+  //ROTACIONES
+  
+ box.rotation.set(0.7,0.5,0);
+ brazo1.rotation.set  (0, 0, 1);
+ brazo2.rotation.set (0,0,-1);
+ pelo.rotation.set (0.1,0,0);
+ regalo1.rotation.set (0.5,0,0);
+ 
+//camera.position.set(0,0,0);
+camera.lookAt(falda.position);
+
+  // Now, show what the camera sees on the screen:
+  renderer.render(scene, camera);
+</script>
